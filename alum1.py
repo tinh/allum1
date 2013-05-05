@@ -2,6 +2,31 @@
 
 import sys
 
+def pick_allum(allums, rank):
+	while True:
+		print('pick a nb of allum (', allums[rank], 'max)', end = ' ')
+		nb_allum = int(input())
+		if nb_allum <= allums[rank]:
+			return nb_allum
+
+def pick_rank(allums, total):
+	while True:
+		print('pick a rank (', total, 'max)', end = ' ')
+		rank = int(input())
+		if rank <= len(allums) and allums[rank - 1]:
+			return rank - 1
+
+def play(allums, player = 1):
+	total = len(allums)
+	while total:
+		print_allum(allums)
+		rank = pick_rank(allums, total)
+		nb_allum = pick_allum(allums, rank)
+		print('you picked', nb_allum, 'on range', rank + 1)
+		allums[rank] -= nb_allum
+		if allums[rank] == 0:
+			total -= 1
+
 def gen_allum(nb_rang = 4):
 	nb_allum = 1
 	allums = list(range(nb_rang))
@@ -28,7 +53,6 @@ def main():
 			allums = gen_allum(int(sys.argv[2]))
 		else:
 			allums = gen_allum()
-		print_allum(allums)
-
+		play(allums, int(sys.argv[1]))
 if __name__ == "__main__":
 	main()
