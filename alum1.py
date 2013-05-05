@@ -54,5 +54,6 @@ def main():
 		else:
 			allums = gen_allum()
 		play(allums, int(sys.argv[1]))
+
 if __name__ == "__main__":
 	main()
