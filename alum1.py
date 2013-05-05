@@ -1,6 +1,6 @@
 #! /usr/bin/env python3.3
 
-import sys
+import sys, random
 
 def pick_allum(allums, rank):
 	while True:
@@ -16,14 +16,26 @@ def pick_rank(allums, total):
 		if rank <= len(allums) and allums[rank - 1]:
 			return rank - 1
 
+def comp(allums):
+	while True:
+		rank = random.randint(1, len(allums))
+		if allums[rank - 1] > 0:
+			break
+	nb_allum = random.randint(1, allums[rank - 1])
+	print('comp chose to pick', nb_allum, 'on rank', rank)
+	allums[rank - 1] -= nb_allum	
+	return nb_allum - allums[rank - 1]
+
 def play(allums, player = 1):
 	total = len(allums)
-	while total:
+	while total > 0:
 		print_allum(allums)
 		rank = pick_rank(allums, total)
 		nb_allum = pick_allum(allums, rank)
 		print('you picked', nb_allum, 'on range', rank + 1)
 		allums[rank] -= nb_allum
+		if comp(allums) <= 0:
+			total -= 1
 		if allums[rank] == 0:
 			total -= 1
 
